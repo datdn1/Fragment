@@ -8,5 +8,6 @@
     <string name="title_textview">TITLE</string>
     <string name="details_textview">DETAILS</string>
     <string name="title_solve_checkbox">Solved?</string>
+    <string name="crime_list_fragment_title">List Crime</string>
 
 </resources>

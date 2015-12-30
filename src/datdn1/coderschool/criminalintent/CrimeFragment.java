@@ -1,5 +1,7 @@
 package datdn1.coderschool.criminalintent;
 
+import java.util.UUID;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -19,11 +21,15 @@ public class CrimeFragment extends Fragment{
 	private EditText mCrimeTitleEditText;
 	private CheckBox mIsSolved;
 	private Button mDateButton;
+	
+	public static final String EXTRA_CRIME_ID = "datdn1.coderschool.CrimeIntent.CrimeFragment.EXTRA_CRIME_ID";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mCrime = new Crime();
+//		mCrime = new Crime();
+		UUID crimeId = (UUID)getActivity().getIntent().getSerializableExtra(EXTRA_CRIME_ID);
+		mCrime = CrimeLab.getShareCrime(getActivity()).getCrime(crimeId);
 	}
 
 	@Override
@@ -33,8 +39,13 @@ public class CrimeFragment extends Fragment{
 		mIsSolved = (CheckBox)layout.findViewById(R.id.solved_checkbox);
 		mDateButton = (Button)layout.findViewById(R.id.date_button);
 		
+		mCrimeTitleEditText.setText(mCrime.getTitle());
+		mIsSolved.setChecked(mCrime.isSolved());
 		mDateButton.setText(mCrime.getDate().toString());
-		mDateButton.setEnabled(false);
+		
+		
+//		mDateButton.setText(mCrime.getDate().toString());
+//		mDateButton.setEnabled(false);
 		
 		mIsSolved.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
